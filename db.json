@@ -1,3 +1,44 @@
 {
-	"info": [{ "id": 1 }, { "id": 2 }, { "id": 3 }, { "id": 41 }]
+  "info": {
+    "success": true,
+    "data": {
+      "info": "Some information about the <b>company</b>."
+    }
+  },
+  "login": [
+    {
+      "success": true,
+      "data": {
+        "token": "fb566635a66295da0c8ad3f467c32dcf"
+      }
+    }
+  ],
+  "profile&token=fb566635a66295da0c8ad3f467c32dcf": {
+    "success": true,
+    "data": {
+      "fullname": "Aleksei K",
+      "email": "aleksei@example.com"
+    }
+  },
+  "author": {
+    "success": true,
+    "data": {
+      "authorId": 1,
+      "name": "Charlie Chaplin"
+    }
+  },
+  "quote": {
+    "success": true,
+    "data": {
+      "quoteId": 1,
+      "authorId": 1,
+      "quote": "A day without laughter is a day wasted."
+    }
+  },
+  "logout": [
+    {
+      "success": true,
+      "data": {}
+    }
+  ]
 }
