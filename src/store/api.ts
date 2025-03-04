@@ -1,10 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+	GetAuthorResponse,
+	GetInfoResponse,
+	GetLoginRequestData,
+	GetLoginResponse,
+	GetLogoutResponse,
+	GetProfileParams,
+	GetProfileResponse,
+	GetQuoteResponse,
+} from '../shared/api/types';
 
 export const api = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/' }),
 	endpoints: (builder) => ({
-		getInfo: builder.query({
+		getInfo: builder.query<GetInfoResponse, {}>({
 			query: () => {
 				return {
 					url: 'info',
@@ -13,7 +23,7 @@ export const api = createApi({
 			},
 		}),
 
-		login: builder.mutation({
+		login: builder.mutation<GetLoginResponse, GetLoginRequestData>({
 			query: ({ ...requestData }) => {
 				return {
 					url: 'login',
@@ -24,7 +34,7 @@ export const api = createApi({
 				};
 			},
 		}),
-		getProfile: builder.query({
+		getProfile: builder.query<GetProfileResponse, GetProfileParams>({
 			query: ({ token }) => {
 				return {
 					url: `profile&token=${token}`,
@@ -33,7 +43,7 @@ export const api = createApi({
 			},
 		}),
 
-		getAuthor: builder.query({
+		getAuthor: builder.query<GetAuthorResponse, {}>({
 			query: () => {
 				return {
 					url: 'author',
@@ -42,7 +52,7 @@ export const api = createApi({
 			},
 		}),
 
-		getQuote: builder.query({
+		getQuote: builder.query<GetQuoteResponse, {}>({
 			query: () => {
 				return {
 					url: 'quote',
@@ -51,7 +61,7 @@ export const api = createApi({
 			},
 		}),
 
-		logout: builder.query({
+		logout: builder.query<GetLogoutResponse, {}>({
 			query: () => {
 				return {
 					url: 'logout',

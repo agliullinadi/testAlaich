@@ -10,7 +10,9 @@ function App() {
 				<Routes>
 					{/* Главная страница */}
 					<Route path={'/'} element={<AboutUs />} />
+					{/* Страница Логина */}
 					<Route path={'/signin'} element={<SignIn />} />
+					{/* Страница Профиля */}
 					<Route path={'/profile'} element={<Profile />} />
 				</Routes>
 			</BrowserRouter>

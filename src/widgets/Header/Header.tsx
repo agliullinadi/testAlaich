@@ -34,11 +34,11 @@ export const Header = () => {
 
 	return (
 		<Box sx={{ display: 'flex', gap: '12px' }}>
+			<Button variant="outlined" onClick={handleAboutUs}>
+				About us
+			</Button>
 			{authToken ? (
 				<>
-					<Button variant="outlined" onClick={handleAboutUs}>
-						About us
-					</Button>
 					<Button variant="outlined" onClick={handleProfile}>
 						Profile
 					</Button>
@@ -47,14 +47,9 @@ export const Header = () => {
 					</Button>
 				</>
 			) : (
-				<>
-					<Button variant="outlined" onClick={handleAboutUs}>
-						About us
-					</Button>
-					<Button variant="outlined" onClick={handleLogin}>
-						Sign in
-					</Button>
-				</>
+				<Button variant="outlined" onClick={handleLogin}>
+					Sign in
+				</Button>
 			)}
 		</Box>
 	);

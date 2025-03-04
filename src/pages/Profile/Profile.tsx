@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Header } from '../../widgets/Header/Header';
 import { ModalUpdate } from '../../widgets/Modals/ModalUpdate/ModalUpdate';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useLazyGetProfileQuery } from '../../store/api';
+import { ProfileInfo } from './components/ProfileInfo';
 
 type InfoDataAuthorType = {
 	success: boolean;
@@ -29,9 +30,6 @@ export const Profile = () => {
 	const [open, setOpen] = useState(false);
 	const [infoDataAuthor, setInfoDataAuthor] = useState<InfoDataAuthorType>();
 	const [infoDataQuote, setInfoDataQuote] = useState<InfoDataQuoteType>();
-	const handleUpdate = () => {
-		setOpen(true);
-	};
 
 	let authToken = Cookies.get('token');
 
@@ -48,25 +46,11 @@ export const Profile = () => {
 			{data ? (
 				<>
 					<Header />
-					<Box sx={{ display: 'flex', flexDirection: 'row', gap: '20px', alignItems: 'center' }}>
-						<Box>
-							<img
-								src="https://i.seadn.io/gae/EJ0jGsyn9HqmIilFVwUL-knd-cOEata2lSJSZgHfs_Tsne6cHJeqG1VJWwmSjw3N97_g8onMzw21ZHsA-IBkVw-s7ZsPHrvpCNZvAlI?auto=format&dpr=1&w=1920"
-								alt="Avatar"
-								style={{ width: '100px', height: '100px', borderRadius: '50%' }}
-							/>
-						</Box>
-						<Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-							<Typography variant="h4" component="h4">
-								Welcome {data?.data?.fullname}
-							</Typography>
-							<Button onClick={handleUpdate} type="submit" variant="contained" color="primary" sx={{ width: 'fit-content' }}>
-								Update
-							</Button>
-						</Box>
+					<ProfileInfo fullname={data?.data?.fullname} setOpen={setOpen} />
+					<Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+						<Typography variant="body1">{infoDataAuthor?.data?.name}</Typography>
+						<Typography variant="body1">{infoDataQuote?.data?.quote}</Typography>
 					</Box>
-					<Box>{infoDataAuthor?.data?.name}</Box>
-					<Box>{infoDataQuote?.data?.quote}</Box>
 					<ModalUpdate open={open} setOpen={setOpen} setInfoDataAuthor={setInfoDataAuthor} setInfoDataQuote={setInfoDataQuote} />
 				</>
 			) : (
