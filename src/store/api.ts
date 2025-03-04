@@ -7,6 +7,7 @@ import {
 	GetLogoutResponse,
 	GetProfileParams,
 	GetProfileResponse,
+	GetQuoteParams,
 	GetQuoteResponse,
 } from '../shared/api/types';
 
@@ -52,10 +53,10 @@ export const api = createApi({
 			},
 		}),
 
-		getQuote: builder.query<GetQuoteResponse, {}>({
-			query: () => {
+		getQuote: builder.query<GetQuoteResponse, GetQuoteParams>({
+			query: ({ authorId }) => {
 				return {
-					url: 'quote',
+					url: `quote?authorId=${authorId}`,
 					method: 'GET',
 				};
 			},

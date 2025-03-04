@@ -34,16 +34,18 @@ export type GetAuthorResponse = {
 	data: {
 		authorId: number;
 		name: string;
-	};
+	}[];
 };
 
 export type GetQuoteResponse = {
-	success: boolean;
-	data: {
-		quoteId: number;
-		authorId: number;
-		quote: string;
-	};
+	id?: number;
+	quoteId: number;
+	authorId: number;
+	quote: string;
+}[];
+
+export type GetQuoteParams = {
+	authorId: number;
 };
 
 export type GetLogoutResponse = {

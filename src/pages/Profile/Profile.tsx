@@ -7,29 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { useLazyGetProfileQuery } from '../../store/api';
 import { ProfileInfo } from './components/ProfileInfo';
 
-type InfoDataAuthorType = {
-	success: boolean;
-	data: {
-		name: string;
-		authorId: number;
-	};
-};
-
-type InfoDataQuoteType = {
-	success: boolean;
-	data: {
-		quoteId: number;
-		authorId: number;
-		quote: string;
-	};
-};
-
 export const Profile = () => {
 	const navigate = useNavigate();
 	const [getProfileInfo, { data }] = useLazyGetProfileQuery();
 	const [open, setOpen] = useState(false);
-	const [infoDataAuthor, setInfoDataAuthor] = useState<InfoDataAuthorType>();
-	const [infoDataQuote, setInfoDataQuote] = useState<InfoDataQuoteType>();
+	const [infoDataAuthor, setInfoDataAuthor] = useState('');
+	const [infoDataQuote, setInfoDataQuote] = useState('');
 
 	let authToken = Cookies.get('token');
 
@@ -48,8 +31,8 @@ export const Profile = () => {
 					<Header />
 					<ProfileInfo fullname={data?.data?.fullname} setOpen={setOpen} />
 					<Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-						<Typography variant="body1">{infoDataAuthor?.data?.name}</Typography>
-						<Typography variant="body1">{infoDataQuote?.data?.quote}</Typography>
+						<Typography variant="body1">{infoDataAuthor}</Typography>
+						<Typography variant="body1">{infoDataQuote}</Typography>
 					</Box>
 					<ModalUpdate open={open} setOpen={setOpen} setInfoDataAuthor={setInfoDataAuthor} setInfoDataQuote={setInfoDataQuote} />
 				</>

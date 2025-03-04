@@ -6,8 +6,8 @@ import { useLazyGetAuthorQuery, useLazyGetQuoteQuery } from '../../../store/api'
 type ModalUpdateProps = {
 	open: boolean;
 	setOpen: (open: boolean) => void;
-	setInfoDataAuthor: any;
-	setInfoDataQuote: any;
+	setInfoDataAuthor: (v: string) => void;
+	setInfoDataQuote: (v: string) => void;
 };
 
 const style = {
@@ -26,6 +26,8 @@ const style = {
 };
 
 export const ModalUpdate = ({ open, setOpen, setInfoDataAuthor, setInfoDataQuote }: ModalUpdateProps) => {
+	let randomId = Math.floor(Math.random() * 3);
+
 	const [fetchAuthor, { data: dataAuthor, isSuccess: isSuccessAuthor }] = useLazyGetAuthorQuery();
 	const [fetchQuote, { data: dataQuote, isSuccess: isSuccessQuote }] = useLazyGetQuoteQuery();
 
@@ -55,7 +57,7 @@ export const ModalUpdate = ({ open, setOpen, setInfoDataAuthor, setInfoDataQuote
 
 	const fetchTimeOutQuote = () => {
 		// @ts-ignore
-		fetchQuoteTimeout.current = setTimeout(() => fetchQuote({}), 5000);
+		fetchQuoteTimeout.current = setTimeout(() => fetchQuote({ authorId: dataAuthor?.data[randomId]?.authorId }), 5000);
 	};
 
 	useEffect(() => {
@@ -66,19 +68,17 @@ export const ModalUpdate = ({ open, setOpen, setInfoDataAuthor, setInfoDataQuote
 	}, [open]);
 
 	useEffect(() => {
-		if (isSuccessAuthor) {
+		if (isSuccessAuthor && dataAuthor) {
 			fetchTimeOutQuote();
+			setInfoDataAuthor(dataAuthor?.data[randomId]?.name);
 		}
-	}, [isSuccessAuthor]);
+	}, [isSuccessAuthor, dataAuthor]);
 
 	useEffect(() => {
-		if (dataAuthor) {
-			setInfoDataAuthor(dataAuthor);
-		}
 		if (dataQuote) {
-			setInfoDataQuote(dataQuote);
+			setInfoDataQuote(dataQuote[Math.floor(Math.random() * dataQuote?.length)].quote);
 		}
-	}, [dataAuthor, dataQuote]);
+	}, [dataQuote]);
 
 	return (
 		<Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
